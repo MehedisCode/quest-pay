@@ -19,36 +19,8 @@ const NavBar = () => {
             </a>
           </div>
 
-          {/* Middle: Navigation Links (Desktop) */}
-          <div className="hidden md:flex space-x-8">
-            <a
-              href="/"
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
-            >
-              Home
-            </a>
-            <a
-              href="/questions"
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
-            >
-              Questions
-            </a>
-            <a
-              href="/tags"
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
-            >
-              Tags
-            </a>
-            <a
-              href="/users"
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
-            >
-              Users
-            </a>
-          </div>
-
-          {/* Search Bar */}
-          <div className="flex items-center">
+          {/* Right: Search Bar and Auth Buttons */}
+          <div className="flex items-center space-x-4">
             <div className="relative">
               <input
                 type="text"
@@ -70,6 +42,20 @@ const NavBar = () => {
                 />
               </svg>
             </div>
+            <div className="flex space-x-2">
+              <a
+                href="/login"
+                className="text-gray-700 hover:text-white hover:bg-blue-600 font-medium px-4 py-2 rounded-md transition-colors duration-200"
+              >
+                Log In
+              </a>
+              <a
+                href="/logout"
+                className="text-gray-700 hover:text-white hover:bg-red-600 font-medium px-4 py-2 rounded-md transition-colors duration-200"
+              >
+                Log Out
+              </a>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -88,34 +74,11 @@ const NavBar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu (Empty for Now) */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-2">
-            <a
-              href="/"
-              className="block text-gray-700 hover:text-blue-600 font-medium"
-            >
-              Home
-            </a>
-            <a
-              href="/questions"
-              className="block text-gray-700 hover:text-blue-600 font-medium"
-            >
-              Questions
-            </a>
-            <a
-              href="/tags"
-              className="block text-gray-700 hover:text-blue-600 font-medium"
-            >
-              Tags
-            </a>
-            <a
-              href="/users"
-              className="block text-gray-700 hover:text-blue-600 font-medium"
-            >
-              Users
-            </a>
+            {/* Placeholder for future menu items */}
           </div>
         </div>
       )}
