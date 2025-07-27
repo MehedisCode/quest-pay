@@ -1,27 +1,13 @@
-import { useEffect, useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import NavBar from './components/NavBar'
 import './App.css'
 
-const App = () => {
-  const [msg, setMsg] = useState('');
-  const backend_url = 'http://localhost:3000/'
-
-  useEffect(() => {
-    fetch(backend_url)
-    .then((res) => {
-      return res.text();
-    })
-    .then((data) => {
-      setMsg(data);
-    }, [])
-
-  })
-
+function App() {
   return (
     <>
-      <h1>Mehedi Hasan</h1>
-      <h3>Data: {msg}</h3>
+      <NavBar />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
