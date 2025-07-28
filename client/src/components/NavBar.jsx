@@ -1,19 +1,31 @@
-import { useState } from 'react';
-import { HamburgerMenuIcon, Cross1Icon } from '@radix-ui/react-icons';
+import PropTypes from 'prop-types';
 
-const NavBar = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
+const NavBar = ({ toggleSidebar }) => {
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
+    <nav className="bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.2)] sticky top-0 z-[1000]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Left: Logo */}
-          <div className="flex items-center">
+          {/* Left: Logo and Sidebar Toggle */}
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={toggleSidebar}
+              className="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none p-2"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
             <a href="/" className="flex items-center space-x-2">
               <span className="text-xl font-bold text-gray-900">QuestPay</span>
             </a>
@@ -57,33 +69,14 @@ const NavBar = () => {
               </a>
             </div>
           </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={toggleMobileMenu}
-              className="text-gray-700 hover:text-blue-600 focus:outline-none"
-            >
-              {isMobileMenuOpen ? (
-                <Cross1Icon className="h-6 w-6" />
-              ) : (
-                <HamburgerMenuIcon className="h-6 w-6" />
-              )}
-            </button>
-          </div>
         </div>
       </div>
-
-      {/* Mobile Menu (Empty for Now) */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-2">
-            {/* Placeholder for future menu items */}
-          </div>
-        </div>
-      )}
     </nav>
   );
+};
+
+NavBar.propTypes = {
+  toggleSidebar: PropTypes.func.isRequired,
 };
 
 export default NavBar;
