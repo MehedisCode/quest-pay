@@ -6,8 +6,6 @@ import QuestionsList from './QuestionsList';
 const MainLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Navbar */}
-      {/* <NavBar /> */}
 
       {/* Main Content */}
       <div className="flex flex-1">
@@ -17,12 +15,12 @@ const MainLayout = () => {
         </div>
 
         {/* Scrollable Middle Section */}
-        <div className="flex-1 md:mx-64 lg:mr-64 overflow-y-auto">
+        <div className="flex-1 md:mx-32 lg:mr-64 overflow-y-auto flex-shrink-0">
           <QuestionsList />
         </div>
 
         {/* Right Sidebar */}
-        <div className="hidden lg:block w-64 flex-shrink-0">
+        <div className="hidden lg:block w-64">
           <RightSidebar />
         </div>
       </div>
