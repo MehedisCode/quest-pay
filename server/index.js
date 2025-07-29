@@ -9,11 +9,7 @@ require("dotenv").config({ path: "../.env" });
 
 // Middlewares
 app.use(
-  cors({
-    origin: ["http://localhost:5173/","http://localhost:5000"],
-    methods: ["GET", "POST"],
-    credentials: true
-  })
+  cors()
 );
 app.use(express.json());
 

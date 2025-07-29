@@ -1,21 +1,31 @@
-import { useState, useCallback } from 'react';
-import NavBar from './NavBar';
-import Sidebar from './Sidebar';
-import RightSidebar from './RightSidebar';
-import QuestionsList from './QuestionsList';
-import TagsList from './TagsList';
-import UsersList from './UsersList';
-import BountiesList from './BountiesList';
-import Leaderboard from './Leaderboard';
-import UserProfile from './UserProfile';
-import AskQuestionForm from './AskQuestionForm';
-import FeaturedBounties from './FeaturedBounties';
-import RecentQuestions from './RecentQuestions';
-import TopTags from './TopTags';
+import { useState, useCallback, useEffect } from "react";
+import NavBar from "./NavBar";
+import Sidebar from "./Sidebar";
+import RightSidebar from "./RightSidebar";
+import QuestionsList from "./QuestionsList";
+import TagsList from "./TagsList";
+import UsersList from "./UsersList";
+import BountiesList from "./BountiesList";
+import Leaderboard from "./Leaderboard";
+import UserProfile from "./UserProfile";
+import AskQuestionForm from "./AskQuestionForm";
+import Home from "./Home";
+import axios from "axios";
+import LoginForm from "./LoginForm";
 
 const MainLayout = () => {
-  const [activeSection, setActiveSection] = useState('questions');
+  const [activeSection, setActiveSection] = useState("home");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem("token", token);
+    } else {
+      localStorage.removeItem("token");
+    }
+  }, [token]);
 
   const handleSetActiveSection = useCallback((section) => {
     setActiveSection(section);
@@ -27,30 +37,22 @@ const MainLayout = () => {
 
   const renderContent = () => {
     switch (activeSection) {
-      case 'home':
-        return (
-          <div className="p-4 max-w-3xl mx-auto">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Welcome to QuestPay</h1>
-            <p className="text-gray-600 mb-4">Explore our Q&A platform with bounties!</p>
-            <div className="space-y-6">
-              <FeaturedBounties />
-              <RecentQuestions />
-              <TopTags />
-            </div>
-          </div>
-        );
-      case 'questions':
+      case "home":
+        return <Home />;
+      case "questions":
         return <QuestionsList />;
-      case 'bounties':
+      case "bounties":
         return <BountiesList />;
-      case 'tags':
+      case "tags":
         return <TagsList />;
-      case 'leaderboard':
+      case "leaderboard":
         return <Leaderboard />;
-      case 'profile':
+      case "profile":
         return <UserProfile />;
-      case 'ask':
+      case "ask":
         return <AskQuestionForm />;
+      case "login":
+        return <LoginForm setToken={setToken} setUser={setUser} />;
       default:
         return <QuestionsList />;
     }
@@ -59,7 +61,10 @@ const MainLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Navbar */}
-      <NavBar toggleSidebar={handleToggleSidebar} />
+      <NavBar
+        setActiveSection={setActiveSection}
+        toggleSidebar={handleToggleSidebar}
+      />
 
       {/* Main Content */}
       <div className="flex flex-1 pt-[4.25rem] bg-gray-50">

@@ -1,15 +1,13 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import NavBar from './components/NavBar'
-import MainLayout from './components/MainLayout';
-import './App.css'
+import { useState, useEffect } from "react";
+import MainLayout from "./components/MainLayout";
+import "./App.css";
 
-function App() {
+const App = () => {
   return (
-    <>
-      {/* <NavBar /> */}
+    <div className="min-h-screen bg-gray-50">
       <MainLayout />
-    </>
+    </div>
   );
-}
+};
 
 export default App;

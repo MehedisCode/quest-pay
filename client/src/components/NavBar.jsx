@@ -1,4 +1,4 @@
-const NavBar = ({ toggleSidebar }) => {
+const NavBar = ({ setActiveSection, toggleSidebar }) => {
   return (
     <nav className="bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.2)] sticky top-0 z-[1000]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,17 +53,17 @@ const NavBar = ({ toggleSidebar }) => {
               </svg>
             </div>
             <div className="flex space-x-2">
-              <a
-                href="/login"
-                className="text-gray-700 hover:text-white hover:bg-blue-600 font-medium px-4 py-2 rounded-md transition-colors duration-200"
+              <button
+                onClick={() => setActiveSection("login")}
+                className="text-gray-700 hover:text-white hover:bg-blue-500 font-medium px-4 py-2 rounded-md transition-colors duration-200"
               >
                 Log In
-              </a>
+              </button>
               <a
-                href="/logout"
-                className="text-gray-700 hover:text-white hover:bg-red-600 font-medium px-4 py-2 rounded-md transition-colors duration-200"
+                href="/register"
+                className="text-gray-700 hover:text-white hover:bg-blue-500 font-medium px-4 py-2 rounded-md transition-colors duration-200"
               >
-                Log Out
+                Register
               </a>
             </div>
           </div>
