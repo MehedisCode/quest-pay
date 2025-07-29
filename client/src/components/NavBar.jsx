@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 const NavBar = ({ toggleSidebar }) => {
   return (
     <nav className="bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.2)] sticky top-0 z-[1000]">
@@ -73,10 +71,6 @@ const NavBar = ({ toggleSidebar }) => {
       </div>
     </nav>
   );
-};
-
-NavBar.propTypes = {
-  toggleSidebar: PropTypes.func.isRequired,
 };
 
 export default NavBar;
