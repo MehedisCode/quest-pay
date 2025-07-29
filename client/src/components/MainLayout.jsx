@@ -47,7 +47,7 @@ const MainLayout = () => {
         return <TagsList />;
       case "leaderboard":
         return <Leaderboard />;
-      case "profile":
+      case "my profile":
         return <UserProfile />;
       case "ask":
         return <AskQuestionForm />;
