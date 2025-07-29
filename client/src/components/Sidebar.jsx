@@ -1,7 +1,13 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross1Icon } from "@radix-ui/react-icons";
 
-const Sidebar = ({ activeSection, setActiveSection, isOpen, setIsOpen }) => {
+const Sidebar = ({
+  token,
+  activeSection,
+  setActiveSection,
+  isOpen,
+  setIsOpen,
+}) => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -87,12 +93,17 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, setIsOpen }) => {
               {link.name}
             </button>
           ))}
-          <button
-            onPointerDown={() => handleNavClick("ask")}
-            className="text-white bg-blue-600 hover:bg-blue-700 font-medium px-4 py-2 rounded-md mt-4"
-          >
-            Ask Question
-          </button>
+
+          {token ? (
+            <button
+              onPointerDown={() => handleNavClick("ask")}
+              className="text-white bg-blue-600 hover:bg-blue-700 font-medium px-4 py-2 rounded-md mt-4"
+            >
+              Ask Question
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </>

@@ -6,7 +6,7 @@ import {
   ExclamationTriangleIcon,
 } from "@radix-ui/react-icons";
 
-const LoginForm = ({ setToken, setUser }) => {
+const LoginForm = ({ setActiveSection, setToken, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -14,8 +14,9 @@ const LoginForm = ({ setToken, setUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(email, password);
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "http://localhost:3000/api/auth/login",
         {
           email,
           password,
@@ -25,6 +26,7 @@ const LoginForm = ({ setToken, setUser }) => {
       setUser(response.data.user);
       localStorage.setItem("token", response.data.token);
       setError("");
+      setActiveSection("home");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     }
@@ -52,7 +54,7 @@ const LoginForm = ({ setToken, setUser }) => {
           <div className="flex items-center border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-blue-500 transition-all">
             <EnvelopeClosedIcon className="h-5 w-5 text-gray-500 ml-3" />
             <input
-              type="email"
+              type="text"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

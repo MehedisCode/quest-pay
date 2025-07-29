@@ -52,7 +52,13 @@ const MainLayout = () => {
       case "ask":
         return <AskQuestionForm />;
       case "login":
-        return <LoginForm setToken={setToken} setUser={setUser} />;
+        return (
+          <LoginForm
+            setActiveSection={setActiveSection}
+            setToken={setToken}
+            setUser={setUser}
+          />
+        );
       default:
         return <QuestionsList />;
     }
@@ -75,6 +81,7 @@ const MainLayout = () => {
             setActiveSection={handleSetActiveSection}
             isOpen={isSidebarOpen}
             setIsOpen={handleToggleSidebar}
+            token={token}
           />
         </div>
 

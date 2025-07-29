@@ -55,13 +55,13 @@ const NavBar = ({ setActiveSection, toggleSidebar }) => {
             <div className="flex space-x-2">
               <button
                 onClick={() => setActiveSection("login")}
-                className="text-gray-700 hover:text-white hover:bg-blue-500 font-medium px-4 py-2 rounded-md transition-colors duration-200"
+                className="text-gray-700 hover:text-white hover:bg-blue-600 font-medium px-4 py-2 rounded-md transition-colors duration-200"
               >
                 Log In
               </button>
               <a
                 href="/register"
-                className="text-gray-700 hover:text-white hover:bg-blue-500 font-medium px-4 py-2 rounded-md transition-colors duration-200"
+                className="text-gray-700 hover:text-white hover:bg-blue-600 font-medium px-4 py-2 rounded-md transition-colors duration-200"
               >
                 Register
               </a>
