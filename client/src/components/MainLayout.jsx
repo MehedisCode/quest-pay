@@ -12,6 +12,7 @@ import AskQuestionForm from "./AskQuestionForm";
 import Home from "./Home";
 import axios from "axios";
 import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
 
 const MainLayout = () => {
   const [activeSection, setActiveSection] = useState("home");
@@ -59,6 +60,8 @@ const MainLayout = () => {
             setUser={setUser}
           />
         );
+      case "register":
+        return <RegisterForm setActiveSection={setActiveSection} />;
       default:
         return <QuestionsList />;
     }

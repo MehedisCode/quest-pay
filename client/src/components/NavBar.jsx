@@ -61,12 +61,14 @@ const NavBar = ({ token, setToken, setActiveSection, toggleSidebar }) => {
                 >
                   Log In
                 </button>
-                <a
-                  href="/register"
+                <button
+                  onClick={() => {
+                    setActiveSection("register");
+                  }}
                   className="text-gray-700 hover:text-white hover:bg-blue-600 font-medium px-4 py-2 rounded-md transition-colors duration-200"
                 >
                   Register
-                </a>
+                </button>
               </div>
             ) : (
               ""
