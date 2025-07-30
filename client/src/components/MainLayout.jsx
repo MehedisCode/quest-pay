@@ -68,6 +68,8 @@ const MainLayout = () => {
     <div className="flex flex-col min-h-screen">
       {/* Navbar */}
       <NavBar
+        token={token}
+        setToken={setToken}
         setActiveSection={setActiveSection}
         toggleSidebar={handleToggleSidebar}
       />

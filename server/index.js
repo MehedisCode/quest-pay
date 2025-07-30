@@ -8,9 +8,7 @@ const authRoutes = require("./routes/auth");
 require("dotenv").config({ path: "../.env" });
 
 // Middlewares
-app.use(
-  cors()
-);
+app.use(cors());
 app.use(express.json());
 
 // Mongodb connection
