@@ -25,7 +25,7 @@ const Sidebar = ({
     { name: "Bounties", href: "#" },
     { name: "Tags", href: "#" },
     { name: "Leaderboard", href: "#" },
-    { name: "My Profile", href: "#" },
+    // { name: "My Profile", href: "#" },
   ];
 
   return (
@@ -66,12 +66,17 @@ const Sidebar = ({
                   {link.name}
                 </button>
               ))}
-              <button
-                onPointerDown={() => handleNavClick("ask")}
-                className="text-white bg-blue-600 hover:bg-blue-700 font-medium px-4 py-2 rounded-md mt-4"
-              >
-                Ask Question
-              </button>
+
+              {token ? (
+                <button
+                  onPointerDown={() => handleNavClick("ask")}
+                  className="text-white bg-blue-600 hover:bg-blue-700 font-medium px-4 py-2 rounded-md mt-4"
+                >
+                  Ask Question
+                </button>
+              ) : (
+                ""
+              )}
             </div>
           </Dialog.Content>
         </Dialog.Portal>
@@ -94,6 +99,21 @@ const Sidebar = ({
             </button>
           ))}
 
+          {token ? (
+            <button
+              key={"My Profile"}
+              onPointerDown={() => handleNavClick("my profile")}
+              className={`text-gray-700 hover:text-blue-600 hover:bg-gray-200 font-medium px-4 py-2 rounded-md transition-colors duration-200 ${
+                activeSection === "my profile"
+                  ? "bg-blue-100 text-blue-600"
+                  : ""
+              }`}
+            >
+              My Profile
+            </button>
+          ) : (
+            ""
+          )}
           {token ? (
             <button
               onPointerDown={() => handleNavClick("ask")}
