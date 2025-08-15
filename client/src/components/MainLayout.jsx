@@ -14,6 +14,7 @@ import axios from "axios";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import QuestionDetails from "./QuestionDetails";
+import TagQuestionsList from "./TagQuestionsList";
 
 const MainLayout = () => {
   const [activeSection, setActiveSection] = useState("home");
@@ -21,8 +22,9 @@ const MainLayout = () => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [user, setUser] = useState(null);
   const [selectedQuestionId, setSelectedQuestionId] = useState(null);
+  const [selectedTag, setSelectedTag] = useState(null);
 
-  // callback to open question details with id
+  // Handle Functions
   const handleOpenQuestion = useCallback((id) => {
     setSelectedQuestionId(id);
     setActiveSection("questionDetails");
@@ -33,14 +35,6 @@ const MainLayout = () => {
     setActiveSection("questions");
   };
 
-  useEffect(() => {
-    if (token) {
-      localStorage.setItem("token", token);
-    } else {
-      localStorage.removeItem("token");
-    }
-  }, [token]);
-
   const handleSetActiveSection = useCallback((section) => {
     setActiveSection(section);
   }, []);
@@ -48,6 +42,24 @@ const MainLayout = () => {
   const handleToggleSidebar = useCallback(() => {
     setIsSidebarOpen((prev) => !prev);
   }, []);
+
+  const handleTagClick = (tag) => {
+    setSelectedTag(tag);
+    setActiveSection("tagDetails");
+  };
+
+  const handleQuestionClick = (id) => {
+    setSelectedQuestionId(id);
+    setActiveSection("questionDetails");
+  };
+
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem("token", token);
+    } else {
+      localStorage.removeItem("token");
+    }
+  }, [token]);
 
   const renderContent = () => {
     if (activeSection === "questionDetails" && selectedQuestionId) {
@@ -63,6 +75,14 @@ const MainLayout = () => {
         </>
       );
     }
+    if (activeSection === "tagDetails" && selectedTag) {
+      return (
+        <TagQuestionsList
+          tag={selectedTag}
+          onQuestionClick={handleQuestionClick}
+        />
+      );
+    }
 
     switch (activeSection) {
       case "home":
@@ -72,7 +92,7 @@ const MainLayout = () => {
       case "bounties":
         return <BountiesList onQuestionClick={handleOpenQuestion} />;
       case "tags":
-        return <TagsList />;
+        return <TagsList onTagClick={handleTagClick} />;
       case "leaderboard":
         return <Leaderboard />;
       case "my profile":

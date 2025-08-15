@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoute");
 const questionRoutes = require("./routes/questionRoute");
+const tagRoutes = require("./routes/tagRoute");
 
 // load env variables
 require("dotenv").config({ path: "../.env" });
@@ -31,10 +32,13 @@ app.get("/", (req, res) => {
 });
 
 // auth routes
-app.use("/api/auth/", authRoutes);
+app.use("/api/auth", authRoutes);
 
 // question routes
 app.use("/api/questions", questionRoutes);
+
+// tag routes
+app.use("/tags", tagRoutes);
 
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

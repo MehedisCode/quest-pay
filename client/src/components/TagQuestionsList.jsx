@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const QuestionsList = ({ onQuestionClick }) => {
+const TagQuestionsList = ({ tag, onQuestionClick }) => {
   const [questions, setQuestions] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -8,10 +8,9 @@ const QuestionsList = ({ onQuestionClick }) => {
   const fetchQuestions = async (pageNumber = 1) => {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/questions?page=${pageNumber}`
+        `http://localhost:3000/tags/${tag}?page=${pageNumber}`
       );
       const data = await res.json();
-
       setQuestions(data.questions || []);
       setTotalPages(data.totalPages || 1);
       setPage(pageNumber);
@@ -22,17 +21,19 @@ const QuestionsList = ({ onQuestionClick }) => {
 
   useEffect(() => {
     fetchQuestions(page);
-  }, []);
+  }, [tag, page]);
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
-      fetchQuestions(newPage);
+      setPage(newPage);
     }
   };
 
   return (
     <div className="space-y-4 p-4">
-      <h1 className="text-2xl font-bold text-gray-900 mb-4">All Questions</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-4">
+        Questions tagged <span className="text-blue-600">{tag}</span>
+      </h1>
       {questions.map((question) => (
         <div
           key={question._id}
@@ -56,13 +57,13 @@ const QuestionsList = ({ onQuestionClick }) => {
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mt-3">
                 {Array.isArray(question.tags) &&
-                  question.tags.map((tag) => (
+                  question.tags.map((tagItem) => (
                     <a
-                      key={tag}
-                      href={`/tags/${tag}`}
+                      key={tagItem}
+                      href={`/tags/${tagItem}`}
                       className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded"
                     >
-                      {tag}
+                      {tagItem}
                     </a>
                   ))}
               </div>
@@ -127,4 +128,4 @@ const QuestionsList = ({ onQuestionClick }) => {
   );
 };
 
-export default QuestionsList;
+export default TagQuestionsList;
