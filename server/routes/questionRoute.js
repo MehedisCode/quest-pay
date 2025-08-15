@@ -70,4 +70,36 @@ router.get("/", async (req, res) => {
   }
 });
 
+// For Bounty
+router.get("/bounties", async (req, res) => {
+  try {
+    const bountyQuestions = await Question.find({ bounty: { $gt: 0 } })
+      .populate("owner", "username")
+      .sort({ bounty: -1, timestamp: -1 });
+    res.json(bountyQuestions);
+  } catch (err) {
+    console.error("Error fetching bounties:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Get single question by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const question = await Question.findById(req.params.id).populate(
+      "owner",
+      "username"
+    );
+
+    if (!question) {
+      return res.status(404).json({ error: "Question not found" });
+    }
+
+    res.json(question);
+  } catch (err) {
+    console.error("Error fetching question:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 module.exports = router;

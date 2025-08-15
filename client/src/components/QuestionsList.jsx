@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const QuestionsList = () => {
+const QuestionsList = ({ onQuestionClick }) => {
   const [questions, setQuestions] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -32,24 +32,28 @@ const QuestionsList = () => {
 
   return (
     <div className="space-y-4 p-4">
-      {/* Questions */}
       {questions.map((question) => (
         <div
           key={question._id}
-          className="bg-white shadow-md rounded-md p-4 hover:shadow-lg transition-shadow duration-200"
+          className="bg-white shadow-md rounded-md p-4 hover:shadow-lg transition-shadow duration-200 min-h-[120px]"
         >
-          <div className="flex justify-between items-start">
-            <div>
-              <a
-                href={`/question/${question._id}`}
-                className="text-lg font-semibold text-blue-600 hover:underline"
-              >
-                {question.question}
-              </a>
-              <p className="text-gray-600 text-sm mt-1 line-clamp-2">
-                {question.body}
-              </p>
-              <div className="flex space-x-2 mt-2">
+          <div className="flex justify-between">
+            {/* Left Side */}
+            <div className="flex flex-col">
+              <div className="flex-1">
+                <div
+                  className="text-lg font-semibold text-blue-600 hover:underline line-clamp-1 cursor-pointer"
+                  onClick={() => onQuestionClick(question._id)}
+                >
+                  {question.question}
+                </div>
+                <p className="text-gray-600 text-sm mt-2 line-clamp-2">
+                  {question.body}
+                </p>
+              </div>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 mt-3">
                 {Array.isArray(question.tags) &&
                   question.tags.map((tag) => (
                     <a
@@ -62,13 +66,18 @@ const QuestionsList = () => {
                   ))}
               </div>
             </div>
-            <div className="text-right text-sm text-gray-500">
+
+            {/* Right Side */}
+            <div className="flex-shrink-0 text-right text-sm text-gray-500 w-[150px]">
               <p className="font-bold">
-                by {question.owner?.username || "Unknown"}
+                Asked by {question.owner?.username || "Unknown"}
               </p>
-              <p>{question.votes || 0} votes</p>
+
+              <div className="inline-block bg-green-50 border border-green-400 text-green-800 px-2 py-1 rounded-md text-xs mb-1">
+                Bounty: ৳{question.bounty.toLocaleString()}
+              </div>
+
               <p>{question.answers || 0} answers</p>
-              <p>{question.views || 0} views</p>
               <p>
                 {new Date(question.timestamp).toLocaleDateString("en-GB", {
                   day: "2-digit",

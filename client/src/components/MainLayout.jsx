@@ -13,12 +13,25 @@ import Home from "./Home";
 import axios from "axios";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
+import QuestionDetails from "./QuestionDetails";
 
 const MainLayout = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [user, setUser] = useState(null);
+  const [selectedQuestionId, setSelectedQuestionId] = useState(null);
+
+  // callback to open question details with id
+  const handleOpenQuestion = useCallback((id) => {
+    setSelectedQuestionId(id);
+    setActiveSection("questionDetails");
+  }, []);
+
+  const handleBackToList = () => {
+    setSelectedQuestionId(null);
+    setActiveSection("questions");
+  };
 
   useEffect(() => {
     if (token) {
@@ -37,13 +50,27 @@ const MainLayout = () => {
   }, []);
 
   const renderContent = () => {
+    if (activeSection === "questionDetails" && selectedQuestionId) {
+      return (
+        <>
+          <button
+            onClick={handleBackToList}
+            className="mb-4 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            ← Back to questions
+          </button>
+          <QuestionDetails questionId={selectedQuestionId} />
+        </>
+      );
+    }
+
     switch (activeSection) {
       case "home":
         return <Home />;
       case "questions":
-        return <QuestionsList />;
+        return <QuestionsList onQuestionClick={handleOpenQuestion} />;
       case "bounties":
-        return <BountiesList />;
+        return <BountiesList onQuestionClick={handleOpenQuestion} />;
       case "tags":
         return <TagsList />;
       case "leaderboard":

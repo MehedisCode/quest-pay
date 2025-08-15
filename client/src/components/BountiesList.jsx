@@ -1,67 +1,87 @@
-import { StarIcon } from "@radix-ui/react-icons";
+import { useState, useEffect } from "react";
 
-const BountiesList = () => {
-  const mockBounties = [
-    {
-      id: 1,
-      title: "How to optimize GraphQL queries for large datasets?",
-      bounty: 100,
-      tags: ["graphql", "performance"],
-      author: "User123",
-      timeLeft: "2 days",
-    },
-    {
-      id: 2,
-      title: "Best practices for Tailwind CSS in React projects?",
-      bounty: 50,
-      tags: ["react", "tailwindcss"],
-      author: "DevGuru",
-      timeLeft: "5 days",
-    },
-    {
-      id: 3,
-      title: "Implementing authentication in MERN stack?",
-      bounty: 75,
-      tags: ["mern", "authentication"],
-      author: "CodeMaster",
-      timeLeft: "3 days",
-    },
-  ];
+const BountiesList = ({ onQuestionClick }) => {
+  const [bounties, setBounties] = useState([]);
+
+  useEffect(() => {
+    const fetchBounties = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/api/questions/bounties");
+        const data = await res.json();
+        setBounties(data || []);
+      } catch (err) {
+        console.error("Error fetching bounties:", err);
+      }
+    };
+    fetchBounties();
+  }, []);
 
   return (
-    <div className="p-4 max-w-3xl mx-auto">
+    <div className="space-y-4 p-4">
       <h1 className="text-2xl font-bold text-gray-900 mb-4">Active Bounties</h1>
-      <div className="space-y-4">
-        {mockBounties.map((bounty) => (
+
+      {bounties.length === 0 ? (
+        <p className="text-gray-500">No active bounties found.</p>
+      ) : (
+        bounties.map((question) => (
           <div
-            key={bounty.id}
-            className="border border-gray-200 rounded-md p-4 bg-white shadow-sm hover:shadow-md transition-shadow"
+            key={question._id}
+            className="bg-white shadow-md rounded-md p-4 hover:shadow-lg transition-shadow duration-200 min-h-[120px]"
           >
-            <div className="flex items-center justify-between mb-2">
-              <h2 className="text-lg font-semibold text-gray-800">
-                {bounty.title}
-              </h2>
-              <div className="flex items-center text-yellow-600">
-                <StarIcon className="h-5 w-5 mr-1" />
-                <span className="font-bold">{bounty.bounty} Points</span>
+            <div className="flex justify-between">
+              {/* Left Side */}
+              <div className="flex flex-col">
+                <div className="flex-1">
+                  <div
+                    className="text-lg font-semibold text-blue-600 hover:underline line-clamp-1 cursor-pointer"
+                    onClick={() => onQuestionClick(question._id)}
+                  >
+                    {question.question}
+                  </div>
+                  <p className="text-gray-600 text-sm mt-2 line-clamp-2">
+                    {question.body}
+                  </p>
+                </div>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {Array.isArray(question.tags) &&
+                    question.tags.map((tag) => (
+                      <a
+                        key={tag}
+                        href={`/tags/${tag}`}
+                        className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded"
+                      >
+                        {tag}
+                      </a>
+                    ))}
+                </div>
+              </div>
+
+              {/* Right Side */}
+              <div className="flex-shrink-0 text-right text-sm text-gray-500 w-[150px]">
+                <p className="font-bold">
+                  Asked by {question.owner?.username || "Unknown"}
+                </p>
+
+                {/* Highlight bounty in professional badge */}
+                <div className="inline-block bg-green-50 border border-green-400 text-green-800 px-2 py-1 rounded-md text-xs mb-1">
+                  Bounty: ৳{question.bounty.toLocaleString()}
+                </div>
+
+                <p>{question.answers || 0} answers</p>
+                <p>
+                  {new Date(question.timestamp).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "2-digit",
+                  })}
+                </p>
               </div>
             </div>
-            <div className="flex flex-wrap gap-2 mb-2">
-              {bounty.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="bg-blue-100 text-blue-600 text-sm px-2 py-1 rounded"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <p className="text-sm text-gray-600">
-              Asked by {bounty.author} • {bounty.timeLeft} left
-            </p>
           </div>
-        ))}
-      </div>
+        ))
+      )}
     </div>
   );
 };
