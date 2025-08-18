@@ -8,7 +8,7 @@ const TagQuestionsList = ({ tag, onQuestionClick }) => {
   const fetchQuestions = async (pageNumber = 1) => {
     try {
       const res = await fetch(
-        `http://localhost:3000/tags/${tag}?page=${pageNumber}`
+        `http://localhost:3000/api/tags/${tag}?page=${pageNumber}`
       );
       const data = await res.json();
       setQuestions(data.questions || []);
@@ -60,7 +60,7 @@ const TagQuestionsList = ({ tag, onQuestionClick }) => {
                   question.tags.map((tagItem) => (
                     <a
                       key={tagItem}
-                      href={`/tags/${tagItem}`}
+                      href={`/api/tags/${tagItem}`}
                       className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded"
                     >
                       {tagItem}

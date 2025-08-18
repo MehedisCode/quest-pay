@@ -1,8 +1,8 @@
-import FeaturedBounties from './FeaturedBounties';
-import RecentQuestions from './RecentQuestions';
-import TopTags from './TopTags';
+import FeaturedBounties from "./FeaturedBounties";
+import RecentQuestions from "./RecentQuestions";
+import TopTags from "./TopTags";
 
-const Home = () => {
+const Home = ({ handleOpenQuestion }) => {
   return (
     <div className="p-4 max-w-3xl mx-auto">
       <h1 className="text-2xl font-bold text-gray-900 mb-4">
@@ -12,8 +12,8 @@ const Home = () => {
         Explore our Q&A platform with bounties!
       </p>
       <div className="space-y-6">
-        <FeaturedBounties />
-        <RecentQuestions />
+        <FeaturedBounties onQuestionClick={handleOpenQuestion} />
+        <RecentQuestions onQuestionClick={handleOpenQuestion} />
         <TopTags />
       </div>
     </div>

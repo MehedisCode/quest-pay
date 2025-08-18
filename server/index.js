@@ -38,7 +38,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/questions", questionRoutes);
 
 // tag routes
-app.use("/tags", tagRoutes);
+app.use("/api/tags", tagRoutes);
 
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

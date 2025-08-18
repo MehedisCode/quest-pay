@@ -7,7 +7,7 @@ const TagsList = ({ onTagClick }) => {
   useEffect(() => {
     async function fetchTags() {
       try {
-        const res = await fetch("http://localhost:3000/tags/all");
+        const res = await fetch("http://localhost:3000/api/tags/all");
         const data = await res.json();
         setTags(data || []);
       } catch (err) {

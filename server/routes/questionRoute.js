@@ -83,6 +83,19 @@ router.get("/bounties", async (req, res) => {
   }
 });
 
+// Get the 3 most recent questions
+router.get("/recent", async (req, res) => {
+  try {
+    const recentQuestions = await Question.find({})
+      .sort({ timestamp: -1 })
+      .limit(3)
+      .select("question _id"); // Include other fields as needed
+    res.json(recentQuestions);
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 // Get single question by ID
 router.get("/:id", async (req, res) => {
   try {

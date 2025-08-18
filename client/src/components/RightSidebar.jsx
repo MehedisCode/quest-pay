@@ -1,11 +1,11 @@
 const RightSidebar = () => {
   // Mock data for top tags (replace with GraphQL query later)
   const topTags = [
-    { name: 'javascript', count: 120 },
-    { name: 'react', count: 95 },
-    { name: 'graphql', count: 80 },
-    { name: 'mongodb', count: 65 },
-    { name: 'express', count: 50 },
+    { name: "javascript", count: 120 },
+    { name: "react", count: 95 },
+    { name: "graphql", count: 80 },
+    { name: "mongodb", count: 65 },
+    { name: "express", count: 50 },
   ];
 
   return (
@@ -16,7 +16,7 @@ const RightSidebar = () => {
           {topTags.map((tag) => (
             <a
               key={tag.name}
-              href={`/tags/${tag.name}`}
+              href={`/api/tags/${tag.name}`}
               className="flex justify-between items-center text-gray-700 hover:text-blue-600 hover:bg-gray-100 px-4 py-2 rounded-md transition-colors duration-200"
             >
               <span>{tag.name}</span>

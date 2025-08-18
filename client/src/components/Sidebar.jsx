@@ -24,7 +24,7 @@ const Sidebar = ({
     { name: "Questions", href: "#" },
     { name: "Bounties", href: "#" },
     { name: "Tags", href: "#" },
-    { name: "Leaderboard", href: "#" },
+    // { name: "Leaderboard", href: "#" },
     // { name: "My Profile", href: "#" },
   ];
 

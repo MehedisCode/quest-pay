@@ -22,10 +22,22 @@ router.get("/all", async (req, res) => {
   }
 });
 
+// Top 3 Bounties
+router.get("/top-bounties", async (req, res) => {
+  try {
+    const bounties = await Question.find({ bounty: { $gt: 0 } })
+      .sort({ bounty: -1, timestamp: -1 })
+      .limit(3)
+      .select("question bounty tags _id");
+    res.json(bounties);
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 router.get("/:tag", async (req, res) => {
   try {
     const tag = req.params.tag;
-    console.log(tag);
     let page = parseInt(req.query.page) || 1;
     let limit = 10;
     let skip = (page - 1) * limit;

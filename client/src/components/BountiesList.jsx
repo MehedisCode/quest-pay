@@ -49,7 +49,7 @@ const BountiesList = ({ onQuestionClick }) => {
                     question.tags.map((tag) => (
                       <a
                         key={tag}
-                        href={`/tags/${tag}`}
+                        href={`/api/tags/${tag}`}
                         className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded"
                       >
                         {tag}

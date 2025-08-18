@@ -1,35 +1,40 @@
+import { useState, useEffect } from "react";
 import { StarIcon } from "@radix-ui/react-icons";
 
-const FeaturedBounties = () => {
-  const mockBounties = [
-    {
-      id: 1,
-      title: "How to optimize GraphQL queries?",
-      bounty: 100,
-      tags: ["graphql"],
-    },
-    {
-      id: 2,
-      title: "Tailwind CSS best practices?",
-      bounty: 50,
-      tags: ["tailwindcss"],
-    },
-  ];
+// Pass onQuestionClick if using custom navigation; useLinkTo if using React Router
+const FeaturedBounties = ({ onQuestionClick }) => {
+  const [bounties, setBounties] = useState([]);
+
+  useEffect(() => {
+    async function fetchBounties() {
+      try {
+        const res = await fetch("http://localhost:3000/api/tags/top-bounties");
+        const data = await res.json();
+        setBounties(data || []);
+      } catch (error) {
+        console.error("Error fetching featured bounties:", error);
+      }
+    }
+    fetchBounties();
+  }, []);
 
   return (
     <div>
-      <h2 className="text-xl font-semibold text-gray-800 mb-2">Featured Bounties</h2>
+      <h2 className="text-xl font-semibold text-gray-800 mb-2">
+        Featured Bounties
+      </h2>
       <div className="space-y-2">
-        {mockBounties.map((bounty) => (
+        {bounties.map((bounty) => (
           <div
-            key={bounty.id}
-            className="border border-gray-200 rounded-md p-3 bg-white shadow-sm"
+            key={bounty._id}
+            className="border border-gray-200 rounded-md p-3 bg-white shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+            onClick={() => onQuestionClick && onQuestionClick(bounty._id)}
           >
             <div className="flex items-center justify-between">
-              <p className="text-gray-800">{bounty.title}</p>
+              <p className="text-gray-800">{bounty.question}</p>
               <div className="flex items-center text-yellow-600">
                 <StarIcon className="h-4 w-4 mr-1" />
-                <span>{bounty.bounty} Points</span>
+                <span>৳{bounty.bounty}</span>
               </div>
             </div>
             <div className="flex gap-2 mt-1">
