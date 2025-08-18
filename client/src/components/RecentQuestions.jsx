@@ -21,7 +21,7 @@ const RecentQuestions = ({ onQuestionClick }) => {
       <h2 className="text-xl font-semibold text-gray-800 mb-2">
         Recent Questions
       </h2>
-      <div className="flex space-x-3">
+      <div className="flex flex-col space-y-3">
         {recentQuestions.map((question) => (
           <div
             key={question._id}
@@ -29,7 +29,7 @@ const RecentQuestions = ({ onQuestionClick }) => {
             onClick={() => onQuestionClick && onQuestionClick(question._id)}
             title={question.question}
           >
-            <p className="text-gray-800 line-clamp-1">{question.question}</p>
+            <p className="text-blue-600 line-clamp-1">{question.question}</p>
           </div>
         ))}
       </div>
