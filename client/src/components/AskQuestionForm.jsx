@@ -139,9 +139,9 @@ const AskQuestionForm = () => {
             className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="0">None</option>
-            <option value="50">50 Points</option>
-            <option value="100">100 Points</option>
-            <option value="200">200 Points</option>
+            <option value="50">50 TK</option>
+            <option value="100">100 TK</option>
+            <option value="200">200 TK</option>
           </select>
         </div>
         <button
