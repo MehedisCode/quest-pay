@@ -68,7 +68,7 @@ const AskQuestionForm = () => {
   };
 
   return (
-    <div className="p-4 max-w-3xl mx-auto">
+    <div className="p-4 max-w-3xl mx-auto mb-24">
       <h1 className="text-2xl font-bold text-gray-900 mb-4">Ask a Question</h1>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div>

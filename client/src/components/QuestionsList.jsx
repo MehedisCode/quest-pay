@@ -74,11 +74,9 @@ const QuestionsList = ({ onQuestionClick }) => {
                 Asked by {question.owner?.username || "Unknown"}
               </p>
 
-              <div className="inline-block bg-green-50 border border-green-400 text-green-800 px-2 py-1 rounded-md text-xs mb-1">
+              <div className="inline-block bg-green-50 border border-green-400 text-green-800 px-2 py-1 rounded-md text-xs my-2">
                 Bounty: ৳{question.bounty.toLocaleString()}
               </div>
-
-              <p>{question.answers || 0} answers</p>
               <p>
                 {new Date(question.timestamp).toLocaleDateString("en-GB", {
                   day: "2-digit",

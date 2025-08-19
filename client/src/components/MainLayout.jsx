@@ -135,7 +135,7 @@ const MainLayout = () => {
       />
 
       {/* Main Content */}
-      <div className="flex flex-1 pt-[4.25rem] bg-gray-50">
+      <div className="flex pt-[4.25rem] bg-gray-50">
         {/* Left Sidebar */}
         <div className="hidden md:block w-64 flex-shrink-0">
           <Sidebar
