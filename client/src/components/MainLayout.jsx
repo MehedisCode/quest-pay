@@ -115,7 +115,12 @@ const MainLayout = () => {
       case "register":
         return <RegisterForm setActiveSection={setActiveSection} />;
       default:
-        return <Home handleOpenQuestion={handleOpenQuestion} />;
+        return (
+          <Home
+            onTagClick={handleTagClick}
+            handleOpenQuestion={handleOpenQuestion}
+          />
+        );
     }
   };
 
