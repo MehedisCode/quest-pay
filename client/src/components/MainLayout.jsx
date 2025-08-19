@@ -148,9 +148,7 @@ const MainLayout = () => {
         </div>
 
         {/* Scrollable Middle Section */}
-        <div className="flex-1 md:pl-64 lg:pr-64 overflow-y-auto">
-          {renderContent()}
-        </div>
+        <div className="flex-1 overflow-y-auto px-16">{renderContent()}</div>
 
         {/* Right Sidebar */}
         <div className="hidden lg:block w-64 flex-shrink-0">
