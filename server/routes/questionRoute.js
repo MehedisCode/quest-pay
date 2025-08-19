@@ -71,16 +71,26 @@ router.get("/", async (req, res) => {
   }
 });
 
-// For Bounty
+// For Fetching All Bounty
 router.get("/bounties", async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = 10;
+  const skip = (page - 1) * limit;
   try {
-    const bountyQuestions = await Question.find({ bounty: { $gt: 0 } })
+    const questions = await Question.find({ bounty: { $gt: 0 } })
       .populate("owner", "username")
-      .sort({ bounty: -1, timestamp: -1 });
-    res.json(bountyQuestions);
+      .sort({ timestamp: -1 })
+      .skip(skip)
+      .limit(limit);
+    const total = await Question.countDocuments({ bounty: { $gt: 0 } });
+    res.json({
+      questions,
+      page,
+      totalPages: Math.ceil(total / limit),
+      totalCount: total,
+    });
   } catch (err) {
-    console.error("Error fetching bounties:", err);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: "Failed to fetch bounties" });
   }
 });
 
