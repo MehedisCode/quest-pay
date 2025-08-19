@@ -22,16 +22,22 @@ router.get("/all", async (req, res) => {
   }
 });
 
-// Top 3 Bounties
-router.get("/top-bounties", async (req, res) => {
+// Get top 5 tags
+router.get("/top-tags", async (req, res) => {
   try {
-    const bounties = await Question.find({ bounty: { $gt: 0 } })
-      .sort({ bounty: -1, timestamp: -1 })
-      .limit(3)
-      .select("question bounty tags _id");
-    res.json(bounties);
+    const tagsData = await Question.aggregate([
+      { $unwind: "$tags" },
+      { $group: { _id: "$tags", count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+      { $limit: 5 },
+    ]);
+    const tags = tagsData.map((tag) => ({
+      name: tag._id,
+      count: tag.count,
+    }));
+    res.json(tags);
   } catch (error) {
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: "Server error fetching top tags" });
   }
 });
 

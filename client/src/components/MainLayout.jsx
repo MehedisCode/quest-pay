@@ -110,7 +110,7 @@ const MainLayout = () => {
       case "register":
         return <RegisterForm setActiveSection={setActiveSection} />;
       default:
-        return <QuestionsList />;
+        return <Home handleOpenQuestion={handleOpenQuestion} />;
     }
   };
 
@@ -144,7 +144,7 @@ const MainLayout = () => {
 
         {/* Right Sidebar */}
         <div className="hidden lg:block w-64 flex-shrink-0">
-          <RightSidebar />
+          <RightSidebar onTagClick={handleTagClick} />
         </div>
       </div>
     </div>

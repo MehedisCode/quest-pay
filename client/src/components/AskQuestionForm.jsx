@@ -23,12 +23,18 @@ const AskQuestionForm = () => {
     setMessage("");
     setMessageType("");
 
+    if (!token) {
+      setMessage("You must be logged in to submit a question.");
+      setMessageType("error");
+      return;
+    }
+
     try {
       const response = await fetch("http://localhost:3000/api/questions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token.trim()}`,
         },
         body: JSON.stringify({
           question: formData.title,

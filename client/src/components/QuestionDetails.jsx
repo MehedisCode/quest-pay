@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import RepliesSection from "./RepliesSection";
 
 const QuestionDetails = ({ questionId }) => {
   const [question, setQuestion] = useState(null);
@@ -86,6 +87,9 @@ const QuestionDetails = ({ questionId }) => {
           ))}
         </div>
       )}
+
+      {/* Replies / Comments Section */}
+      <RepliesSection questionId={questionId} />
     </article>
   );
 };

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Question = require("../models/Question");
 const authMiddleware = require("../middleware/authMiddleware");
+const replyRoute = require("./replyRoute");
 
 router.post("/", authMiddleware, async (req, res) => {
   try {
@@ -83,6 +84,19 @@ router.get("/bounties", async (req, res) => {
   }
 });
 
+// Top 3 Bounties
+router.get("/top-bounties", async (req, res) => {
+  try {
+    const bounties = await Question.find({ bounty: { $gt: 0 } })
+      .sort({ bounty: -1, timestamp: -1 })
+      .limit(3)
+      .select("question bounty tags _id");
+    res.json(bounties);
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 // Get the 3 most recent questions
 router.get("/recent", async (req, res) => {
   try {
@@ -95,6 +109,9 @@ router.get("/recent", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
+// Reply Routes
+router.use("/:id/replies", replyRoute);
 
 // Get single question by ID
 router.get("/:id", async (req, res) => {

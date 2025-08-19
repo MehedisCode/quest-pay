@@ -8,7 +8,9 @@ const FeaturedBounties = ({ onQuestionClick }) => {
   useEffect(() => {
     async function fetchBounties() {
       try {
-        const res = await fetch("http://localhost:3000/api/tags/top-bounties");
+        const res = await fetch(
+          "http://localhost:3000/api/questions/top-bounties"
+        );
         const data = await res.json();
         setBounties(data || []);
       } catch (error) {
