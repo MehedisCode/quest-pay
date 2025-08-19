@@ -86,7 +86,12 @@ const MainLayout = () => {
 
     switch (activeSection) {
       case "home":
-        return <Home handleOpenQuestion={handleOpenQuestion} />;
+        return (
+          <Home
+            onTagClick={handleTagClick}
+            handleOpenQuestion={handleOpenQuestion}
+          />
+        );
       case "questions":
         return <QuestionsList onQuestionClick={handleOpenQuestion} />;
       case "bounties":

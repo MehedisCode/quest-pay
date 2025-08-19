@@ -2,7 +2,7 @@ import FeaturedBounties from "./FeaturedBounties";
 import RecentQuestions from "./RecentQuestions";
 import TopTags from "./TopTags";
 
-const Home = ({ handleOpenQuestion }) => {
+const Home = ({ handleOpenQuestion, handleTagClick }) => {
   return (
     <div className="p-4 max-w-3xl mx-auto">
       <h1 className="text-2xl font-bold text-gray-900 mb-4">
@@ -14,7 +14,7 @@ const Home = ({ handleOpenQuestion }) => {
       <div className="space-y-6">
         <FeaturedBounties onQuestionClick={handleOpenQuestion} />
         <RecentQuestions onQuestionClick={handleOpenQuestion} />
-        <TopTags />
+        <TopTags onTagClick={handleTagClick} />
       </div>
     </div>
   );
